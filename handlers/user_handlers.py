@@ -37,7 +37,7 @@ async def profile(call: types.CallbackQuery):
         ]
     ]
     keyboard = types.InlineKeyboardMarkup(inline_keyboard=kb)
-    money = await get_users_money(user_id=call.message.from_user.id)
+    money = await get_users_money(user_id=call.from_user.id)
     await call.message.answer(text=f'Выберите вариант из списка ниже. Ваш баланс: {money}', reply_markup=keyboard)
 
 
