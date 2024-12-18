@@ -1,10 +1,11 @@
 import asyncio
 import configparser
-from handlers.handler import register_user_messages
+from handlers.user_handlers import register_user_messages
 from aiogram import Bot, Dispatcher
 import logging
 from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
+
 dp = Dispatcher()
 
 
@@ -22,7 +23,10 @@ async def main():
     )
     logger.error("Starting bot")
 
-    bot = Bot(token=config.get("Token", "token"), default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot = Bot(
+        token=config.get("Token", "token"),
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML),
+    )
     dp = Dispatcher()
     register_user_messages(dp)
     await dp.start_polling(bot)
