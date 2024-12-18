@@ -24,11 +24,12 @@ async def get_user_count():
     return user_count[0]
 
 
-async def get_users_money(user_id):
-    connect = await aiosqlite.connect("db.db")
-    cursor = await connect.cursor()
-    user_money = await cursor.execute("SELECT money FROM users WHERE user_id = ?", (user_id))
-    user_money = await user_money.fetchone()
-    await cursor.close()
-    await connect.close()
+async def get_users_money(user_id: int) -> int:
+    async with aiosqlite.connect("db.db") as db:
+        async with db.execute("SELECT money FROM users WHERE user_id = ?", (user_id,)) as cursor:
+            user_money = await cursor.fetchone()
+            
+    if user_money is None:
+        raise ValueError(f"User with ID {user_id} not found")
+    
     return int(user_money[0])
