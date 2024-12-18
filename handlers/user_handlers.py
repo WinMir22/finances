@@ -3,7 +3,7 @@ from aiogram import F, types
 from aiogram import Dispatcher
 from aiogram.filters import CommandStart, Command
 from filters.basefilters import IsAdmin
-from functions import add_user, get_user_count, get_users_money 
+from functions import add_user, get_users_money 
 
 dp = Dispatcher()
 
