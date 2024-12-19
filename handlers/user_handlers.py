@@ -43,5 +43,5 @@ def register_user_messages(dp: Dispatcher):
     dp.message.register(admin_command, Command("admin"), IsAdmin())
     dp.callback_query.register(statistic_callback, F.data == "statistic", IsAdmin())
     dp.callback_query.register(send_callback, F.data == "sendtoall", IsAdmin())
-    dp.callback_query.register()
+    dp.message.register(admin_newsletter_step_2, AdminState.newsletter)
     dp.callback_query.register(start_command2, F.data == "menu")
