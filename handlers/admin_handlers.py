@@ -38,15 +38,14 @@ async def admin_newsletter_step_2(
     await state.clear()
     i = 0
     for user in users:
-        try:
-            await bot.send_message(user, msg)
-            i += 1
-            await asyncio.sleep(0.3)
-        except:
-            pass
+        await bot.send_message(user, msg)
+        i += 1
+        await asyncio.sleep(0.3)
     user_count = len(users)
-    await message.answer(
-        f"Рассылка завершена\n\nВсего пользователей: {user_count}\nУдалось отправить: {i}\nНе удалось отправить:{user_count-i}")
+    await message.edit_text(
+        f"Рассылка завершена\n\nВсего пользователей: {user_count}\nУдалось отправить: {i}\nНе удалось отправить:{user_count-i}",
+        reply_markup=admin_menu_keyboard,
+    )
 
 
 async def start_command2(callback: types.CallbackQuery, state: FSMContext):
