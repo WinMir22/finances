@@ -1,8 +1,10 @@
-from aiogram import types
+import asyncio
+from aiogram import Bot, types
 from functions import get_user_count
 from keyboards import admin_keyboard, admin_menu_keyboard
 from aiogram.fsm.context import FSMContext
 from states import AdminState
+from functions import get_all_users_id
 
 
 async def admin_command(message: types.Message):
@@ -28,6 +30,16 @@ async def send_callback(call: types.CallbackQuery, state: FSMContext):
     )
 
 
+async def newsletter_state(message: types.Message, bot: Bot, state: FSMContext):
+    all_ids = await get_all_users_id()
+    for user_id in all_ids:
+        try:
+            await message.send_copy(user_id[0])
+            await asyncio.sleep(0.3)
+        except:
+            pass
+
+    await message.answer
 async def start_command2(callback: types.CallbackQuery, state: FSMContext):
     await state.clear()
     await callback.message.edit_text(

@@ -33,3 +33,13 @@ async def get_users_money(user_id: int) -> int:
         raise ValueError(f"User with ID {user_id} not found")
     
     return int(user_money[0])
+
+
+async def get_all_users_id():
+    connect = await aiosqlite.connect('db.db')
+    cursor = await connect.cursor()
+    all_ids = await cursor.execute('SELECT user_id FROM users')
+    all_ids = await all_ids.fetchall()
+    await cursor.close()
+    await connect.close()
+    return all_ids
