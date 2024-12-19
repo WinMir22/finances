@@ -49,6 +49,7 @@ async def admin_newsletter_step_2(
         f"Рассылка завершена\n\nВсего пользователей: {user_count}\nУдалось отправить: {i}\nНе удалось отправить:{user_count-i})
 
 
+
 async def start_command2(callback: types.CallbackQuery, state: FSMContext):
     await state.clear()
     await callback.message.edit_text(
